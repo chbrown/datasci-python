@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='datasci',
-    version='0.0.1',
+    version='0.0.2',
     author='Christopher Brown',
     author_email='io@henrian.com',
     url='https://github.com/chbrown/datasci-python',
