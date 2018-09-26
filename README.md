@@ -1,23 +1,23 @@
-## `datasci`
+# `datasci`
 
 [![Latest version on PyPI](https://badge.fury.io/py/datasci.svg)](https://pypi.org/project/datasci/)
 
 Install from PyPI:
 
-```shell
+```sh
 pip install datasci
 ```
 
 Install in development mode:
 
-```shell
+```sh
 pip install -e .
 ```
 
 
 ## Testing
 
-```shell
+```sh
 python setup.py test
 ```
 
