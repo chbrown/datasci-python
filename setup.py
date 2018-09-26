@@ -25,7 +25,5 @@ setup(
         'Intended Audience :: Science/Research',
         'Programming Language :: Python',
         'Topic :: Scientific/Engineering',
-        'Topic :: Sociology',
-        'Topic :: Text Processing',
     ],
 )
