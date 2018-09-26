@@ -11,6 +11,7 @@ setup(
     long_description_content_type='text/markdown',
     license='MIT',
     packages=['datasci'],
+    python_requires='>=3.6',
     install_requires=open('requirements.txt').readlines(),
     setup_requires=[
         'pytest-runner',
