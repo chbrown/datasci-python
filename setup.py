@@ -12,7 +12,16 @@ setup(
     license='MIT',
     packages=['datasci'],
     python_requires='>=3.6',
-    install_requires=open('requirements.txt').readlines(),
+    install_requires=[
+        'altair>=2.2',
+        'cytoolz>=0.8',
+        'ipython>=6.5',
+        'markdown>=2.6',
+        'numpy>=1.15',
+        'pandas>=0.23',
+        'scipy>=1.1',
+        'statsmodels>=0.9',
+    ],
     setup_requires=[
         'pytest-runner',
     ],
