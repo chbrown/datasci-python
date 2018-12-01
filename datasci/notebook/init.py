@@ -140,6 +140,18 @@ from IPython import get_ipython
 from IPython.core.magic import Magics, magics_class, cell_magic
 
 
+def try_literal_eval(node_or_string: str) -> Any:
+    """
+    Try to parse node_or_string as a Python value;
+    return node_or_string unchanged if ast.literal_eval raises an Error.
+    """
+    import ast
+    try:
+        return ast.literal_eval(node_or_string)
+    except (SyntaxError, ValueError):
+        return node_or_string
+
+
 @magics_class
 class PandasOptionContextMagics(Magics):
     """
@@ -165,7 +177,7 @@ class PandasOptionContextMagics(Magics):
             %%pandas display.max_rows 100
             df
         """
-        args = line.split()
+        args = map(try_literal_eval, line.split())
         with pd.option_context(*args):
             self.shell.run_cell(cell)
 
