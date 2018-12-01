@@ -141,29 +141,29 @@ from IPython.core.magic import Magics, magics_class, cell_magic
 
 @magics_class
 class PandasOptionContextMagics(Magics):
-    '''
+    """
     See docs at https://ipython.readthedocs.io/en/stable/config/custommagics.html
-    '''
+    """
     @cell_magic
     def full(self, _line, cell):
-        '''
+        """
         Use like:
 
             %%full
             df
-        '''
+        """
         with pd.option_context('display.max_rows', None,
                                'display.max_columns', None):
             self.shell.run_cell(cell)
 
     @cell_magic
     def pandas(self, line, cell):
-        '''
+        """
         Use like:
 
             %%pandas display.max_rows 100
             df
-        '''
+        """
         args = line.split()
         with pd.option_context(*args):
             self.shell.run_cell(cell)

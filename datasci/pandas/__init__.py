@@ -6,16 +6,16 @@ logger = logging.getLogger(__name__)
 
 
 def drop_na_columns(df: pd.DataFrame, inplace=False) -> pd.DataFrame:
-    '''
+    """
     Simply calls df.dropna(axis='columns', how='all', ...)
-    '''
+    """
     return df.dropna(axis='columns', how='all', inplace=inplace)
 
 
 def drop_uninformative_columns(df: pd.DataFrame) -> pd.DataFrame:
-    '''
+    """
     Drop columns from df where values in all cells are identical.
-    '''
+    """
     # TODO: support DataFrames where df.columns is a MultiIndex
     for column in df.columns:
         series = df[column]
