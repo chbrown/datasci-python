@@ -10,12 +10,13 @@ import math
 import json
 import html
 import gzip
+import time
 import logging
 import itertools
 from collections import Counter, defaultdict
 from importlib import reload
 print(f'Python: {platform.python_version()}')
-print('Imported: sys, platform, os, re, math, json, html, gzip, logging, itertools, Counter, defaultdict, reload')
+print('Imported: sys, platform, os, re, math, json, html, gzip, time, logging, itertools, Counter, defaultdict, reload')
 
 from typing import Iterable, Iterator, List, Mapping, Optional, Sequence, Set, Tuple, Union
 print('Imported: Iterable, Iterator, List, Mapping, Optional, Sequence, Set, Tuple, Union from typing')
