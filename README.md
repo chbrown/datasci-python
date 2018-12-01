@@ -15,6 +15,26 @@ pip install -e .
 ```
 
 
+## Features
+
+### Jupyter notebook initialization
+
+```pycon
+%run -m datasci.notebook.init
+```
+
+### Pandas helpers
+
+```python
+import pandas as pd
+df = pd.DataFrame(...)
+
+from datasci.pandas import drop_na_columns, drop_uninformative_columns
+df_without_na = drop_na_columns(df)
+df_informative = drop_uninformative_columns(df)
+```
+
+
 ## Testing
 
 ```sh
