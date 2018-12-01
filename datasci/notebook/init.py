@@ -119,6 +119,29 @@ logger.setLevel(logging.DEBUG)
 print(f'Created: logger with level={logging.getLevelName(logger.level)}')
 
 
+def asdf(*columns: List[str], index_columns=None):
+    """
+    Decorates a generator function, sending the results as `data` to the
+    pd.DataFrame constructor. Super simple, but avoids having to nest a
+    generator function inside a DataFrame-creator function. Use like:
+
+    @asdf('x', 'y')
+    def line_df():
+        for x in range(100):
+            yield x, 2 * x + 1
+    df = line_df()
+    """
+    def asdf_inner(row_generator: Callable[..., Iterable[Iterable]]):
+        def wrapped_row_generator(*args, **kwargs):
+            data = row_generator(*args, **kwargs)
+            df = pd.DataFrame(data, columns=columns)
+            if index_columns:
+                df = df.set_index(index_columns)
+            return df
+        return wrapped_row_generator
+    return asdf_inner
+
+
 class fmt(object):
     def __init__(self, s, *args, **kwargs):
         self.text = s.format(*args, **kwargs)
