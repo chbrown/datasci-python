@@ -32,6 +32,9 @@ df = pd.DataFrame(...)
 from datasci.pandas import drop_na_columns, drop_uninformative_columns
 df_without_na = drop_na_columns(df)
 df_informative = drop_uninformative_columns(df)
+
+# or, all-together:
+df = pd.DataFrame(...).pipe(drop_na_columns).pipe(drop_uninformative_columns)
 ```
 
 
