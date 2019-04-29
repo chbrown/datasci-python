@@ -185,6 +185,7 @@ class PandasOptionContextMagics(Magics):
     @cell_magic
     def full(self, _line, cell):
         """
+        Set Pandas options `display.{max_rows,max_columns}` to None (unlimited).
         Use like:
 
             %%full
