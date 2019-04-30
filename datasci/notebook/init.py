@@ -20,6 +20,7 @@ import itertools
 from functools import partial, reduce
 from collections import abc, Counter, defaultdict
 from importlib import reload
+from numbers import Number
 
 from typing import (
     Any,
