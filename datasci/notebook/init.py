@@ -147,7 +147,7 @@ def asdf(*columns: List[str], index_columns=None):
     return asdf_inner
 
 
-class fmt(object):
+class fmt:  # pylint: disable=too-few-public-methods
     def __init__(self, s, *args, **kwargs):
         self.text = s.format(*args, **kwargs)
 
