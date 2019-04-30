@@ -6,19 +6,16 @@ Intended for use in Jupyter notebooks like:
 
 # stdlib
 import sys
-import platform
 import os
 import re
 import math
 import time
 import random
 import logging
-print(f'Python: {platform.python_version()}')
 print('Imported: sys, platform, os, re, math, time, random, logging')
 
 import gzip
 import json
-import html
 import operator
 import itertools
 from functools import partial, reduce
