@@ -48,6 +48,7 @@ from IPython.core.magic import Magics, magics_class, cell_magic
 import cytoolz as toolz
 import numpy as np
 import markdown
+from pyperclip import copy, paste
 
 # data science + statistics
 import scipy
