@@ -220,5 +220,26 @@ def print_versions():
     print(f'- markdown=={markdown.__version__}')
 
 
-if __name__ == '__main__':
+DEFAULT_LOGGING_FORMAT = '%(asctime)14s %(levelname)-7s %(name)s - %(message)s'
+
+
+def install_datasci_notebook(logging_format: str = DEFAULT_LOGGING_FORMAT,
+                             logging_level: int = logging.DEBUG) -> logging.Logger:
+    """
+    Reset & configure logging, register magics, and return logger named 'notebook'
+    """
+    # reset logging (replace with basicConfig(force=True) when Python 3.8 comes out)
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+        handler.close()
+    # configure logging
+    logging.basicConfig(format=logging_format, level=logging_level)
+    # install IPython integrations
+    from IPython import get_ipython
     get_ipython().register_magics(PandasOptionContextMagics)
+    # return namespaced logger
+    return logging.getLogger('notebook')
+
+
+if __name__ == '__main__':
+    install_datasci_notebook()
