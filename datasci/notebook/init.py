@@ -53,6 +53,7 @@ import markdown
 import scipy
 import pandas as pd
 import altair as alt
+from datasci.pandas import drop_na_columns, drop_uninformative_columns
 
 _np_options = {
     'precision': 5,    # default: 8
