@@ -2,7 +2,7 @@
 Intended for use in Jupyter notebooks like:
     %run -m datasci.notebook.init
 """
-# pylint: disable=unused-import,wrong-import-position
+# pylint: disable=unused-import
 
 # stdlib
 import sys
@@ -12,42 +12,53 @@ import math
 import time
 import random
 import logging
-print('Imported: sys, platform, os, re, math, time, random, logging')
 
 import gzip
 import json
 import operator
 import itertools
 from functools import partial, reduce
-from collections import Counter, defaultdict
+from collections import abc, Counter, defaultdict
 from importlib import reload
-print('Imported: gzip, json, html, operator, itertools, partial, reduce, Counter, defaultdict, reload')
 
-from typing import Any, Callable, Optional, Union
-print('Imported: Any, Callable, Optional, Union from typing')
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Generator,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+    Union,
+)
 
-from typing import Generator, Iterable, Iterator, List, Mapping, Sequence, Set, Tuple
-print('Imported: Generator, Iterable, Iterator, List, Mapping, Sequence, Set, Tuple')
-
+# IPython
+import IPython
 from IPython.display import display
-print('Imported: display from IPython.display')
+from IPython.core.magic import Magics, magics_class, cell_magic
 
 # general purpose
 import cytoolz as toolz
+import numpy as np
+import markdown
+
+# data science + statistics
+import scipy
+import pandas as pd
+import altair as alt
+
 _np_options = {
     'precision': 5,    # default: 8
     'threshold': 100,  # default: 1000
     'linewidth': 120,  # default: 75
 }
-import numpy as np
 np.set_printoptions(**_np_options)
-print('Imported: '
-      f'cytoolz=={toolz.__version__} as toolz, '
-      f'numpy=={np.__version__} as np')
 
-# data science + statistics
-import scipy
-import pandas as pd
 _pd_options = {
     # Unfortunately, there is no option to set precision on pd.Index formatting
     'display.chop_threshold': np.finfo(float).eps,  # default: None
@@ -58,17 +69,9 @@ _pd_options = {
     'display.width': _np_options['linewidth'],  # default: 80
 }
 pd.set_option(*toolz.concat(_pd_options.items()))
-import statsmodels
-import statsmodels.formula.api as smf
-print('Imported: '
-      f'scipy=={scipy.__version__} as scipy, '
-      f'pandas=={pd.__version__} as pd, '
-      f'statsmodels.formula.api=={statsmodels.__version__} as smf')
 
-import altair as alt
 # Disable "Export PNG/SVG" and "Open in Vega" links
 alt.renderers.enable('default', embed_options={'actions': False})
-print(f'Imported: altair=={alt.__version__} as alt')
 
 
 def _globalFont_theme(font: str = 'Times New Roman',
@@ -114,17 +117,11 @@ def _globalFont_theme(font: str = 'Times New Roman',
 alt.themes.register('globalFont', _globalFont_theme)
 
 
-import markdown
 _default_markdown_extensions = [
     'markdown.extensions.extra',
     'markdown.extensions.sane_lists',
     'markdown.extensions.smarty',
 ]
-print(f'Imported: markdown=={markdown.version}')
-
-logger = logging.getLogger('notebook')
-logger.setLevel(logging.DEBUG)
-print(f'Created: logger with level={logging.getLevelName(logger.level)}')
 
 
 def asdf(*columns: List[str], index_columns=None):
@@ -165,10 +162,6 @@ class fmt(object):
 
     def _repr_markdown_(self):
         return self.text
-
-
-from IPython import get_ipython
-from IPython.core.magic import Magics, magics_class, cell_magic
 
 
 def try_literal_eval(node_or_string: str) -> Any:
@@ -212,6 +205,19 @@ class PandasOptionContextMagics(Magics):
         args = map(try_literal_eval, line.split())
         with pd.option_context(*args):
             self.shell.run_cell(cell)
+
+
+def print_versions():
+    import platform
+    print(f'Python: {platform.python_version()}')
+    print('Imported 3rd party packages:')
+    print(f'- IPython=={IPython.__version__}')
+    print(f'- cytoolz=={toolz.__version__} as toolz')
+    print(f'- numpy=={np.__version__} as np')
+    print(f'- scipy=={scipy.__version__} as scipy')
+    print(f'- pandas=={pd.__version__} as pd')
+    print(f'- altair=={alt.__version__} as alt')
+    print(f'- markdown=={markdown.__version__}')
 
 
 if __name__ == '__main__':
