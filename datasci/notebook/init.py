@@ -48,6 +48,7 @@ from IPython.core.magic import Magics, magics_class, cell_magic
 import cytoolz as toolz
 import numpy as np
 import markdown
+import smart_open
 from pyperclip import copy, paste
 
 # data science + statistics
@@ -222,6 +223,7 @@ def print_versions():
     print(f'- pandas=={pd.__version__} as pd')
     print(f'- altair=={alt.__version__} as alt')
     print(f'- markdown=={markdown.__version__}')
+    print(f'- smart_open=={smart_open.__version__}')
 
 
 DEFAULT_LOGGING_FORMAT = '%(asctime)14s %(levelname)-7s %(name)s - %(message)s'
