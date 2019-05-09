@@ -227,8 +227,8 @@ def print_versions():
 DEFAULT_LOGGING_FORMAT = '%(asctime)14s %(levelname)-7s %(name)s - %(message)s'
 
 
-def install_datasci_notebook(logging_format: str = DEFAULT_LOGGING_FORMAT,
-                             logging_level: int = logging.DEBUG) -> logging.Logger:
+def install_datasci_notebook(logging_level: int = logging.DEBUG,
+                             logging_format: str = DEFAULT_LOGGING_FORMAT) -> logging.Logger:
     """
     Reset & configure logging, register magics, and return logger named 'notebook'
     """
