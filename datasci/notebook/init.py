@@ -32,9 +32,11 @@ from typing import (
     Iterator,
     List,
     Mapping,
+    NamedTuple,
     Optional,
     Sequence,
     Set,
+    TextIO,
     Tuple,
     Union,
 )
