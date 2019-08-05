@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from datasci.pandas import drop_uninformative_columns
+from datasci.pandas import drop_uninformative_columns, drop_duplicate_columns
 
 
 def test_drop_uninformative_columns(n: int = 10):
@@ -24,3 +24,19 @@ def test_drop_uninformative_columns(n: int = 10):
     resulting_columns = set(df.columns)
     # check that informative columns were not dropped and that uninformative columns were
     assert resulting_columns == informative_columns
+
+
+def test_drop_duplicate_columns(n: int = 10):
+    df = pd.DataFrame.from_dict({
+        'int_range':              np.arange(n),
+        'duplicate_int_range':    np.arange(n),
+        'float_range':            np.arange(n).astype(float),
+        'duplicate_float_range':  np.arange(n).astype(float),
+        'repeated_int':           np.repeat(123, n),
+        'repeated_string':        np.repeat('123', n),
+        'duplicate_repeated_int': np.repeat('123', n).astype(int),
+    })
+    original_columns = set(df.columns)
+    df = drop_duplicate_columns(df)
+    assert set(df.columns) == {column for column in original_columns
+                               if not column.startswith('duplicate_')}

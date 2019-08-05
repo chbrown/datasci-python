@@ -57,7 +57,7 @@ from pyperclip import copy, paste
 import scipy
 import pandas as pd
 import altair as alt
-from datasci.pandas import drop_na_columns, drop_uninformative_columns
+from datasci.pandas import drop_na_columns, drop_uninformative_columns, drop_duplicate_columns
 
 _np_options = {
     'precision': 5,    # default: 8

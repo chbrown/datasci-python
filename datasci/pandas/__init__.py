@@ -1,3 +1,4 @@
+from itertools import combinations
 import logging
 import numpy as np
 import pandas as pd
@@ -32,4 +33,21 @@ def drop_uninformative_columns(df: pd.DataFrame) -> pd.DataFrame:
         elif all(item == exemplar for item in series_iter):
             logger.debug('Dropping column %r from DataFrame (every value = %r)', column, exemplar)
             df = df.drop(column, axis='columns')
+    return df
+
+
+def drop_duplicate_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Drop columns from df where values in all cells are identical to those in a preceding column.
+    """
+    for column1, column2 in combinations(df.columns, 2):
+        if column1 not in df or column2 not in df:
+            continue
+        series1 = df[column1]
+        series2 = df[column2]
+        # convert dtypes to strings since numpy raises "TypeError: data type not understood"
+        # when comparing to pandas's dtypes extensions
+        if str(series1.dtype) == str(series2.dtype) and all(series1 == series2):
+            logger.debug('Dropping column %r from DataFrame (duplicate of %r)', column2, column1)
+            df = df.drop(column2, axis='columns')
     return df
