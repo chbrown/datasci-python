@@ -1,6 +1,8 @@
 """
 Intended for use in Jupyter notebooks like:
     %run -m datasci.notebook.init
+Or:
+    from datasci.notebook.init import *
 """
 # pylint: disable=unused-import
 
