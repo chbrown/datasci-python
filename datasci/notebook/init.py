@@ -84,7 +84,7 @@ _pd_options = {
 pd.set_option(*toolz.concat(_pd_options.items()))
 
 # Disable "Export PNG/SVG" and "Open in Vega" links
-alt.renderers.enable('default', embed_options={'actions': False})
+alt.renderers.enable(embed_options={'actions': False})
 
 
 def _globalFont_theme(font: str = 'Times New Roman',
