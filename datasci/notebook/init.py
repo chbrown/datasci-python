@@ -32,6 +32,7 @@ from typing import (
     Callable,
     Dict,
     Generator,
+    Generic,
     Iterable,
     Iterator,
     List,
@@ -42,6 +43,7 @@ from typing import (
     Set,
     TextIO,
     Tuple,
+    TypeVar,
     Union,
 )
 
