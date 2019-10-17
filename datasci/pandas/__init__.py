@@ -27,9 +27,10 @@ def drop_uninformative_columns(df: pd.DataFrame) -> pd.DataFrame:
             # no rows => nothing to check :|
             continue
         # nan is a special case, since np.nan != np.nan
-        if series.dtype == np.float and np.isnan(exemplar) and all(np.isnan(item) for item in series_iter):
-            logger.debug('Dropping column %r from DataFrame (every value is nan)', column)
-            df = df.drop(column, axis='columns')
+        if series.dtype == np.float and np.isnan(exemplar):
+            if all(np.isnan(item) for item in series_iter):
+                logger.debug('Dropping column %r from DataFrame (every value is nan)', column)
+                df = df.drop(column, axis='columns')
         elif all(item == exemplar for item in series_iter):
             logger.debug('Dropping column %r from DataFrame (every value = %r)', column, exemplar)
             df = df.drop(column, axis='columns')
