@@ -14,6 +14,7 @@ def test_drop_uninformative_columns(n: int = 10):
         'int_range':       np.arange(n),
         'all_but_one':     np.concatenate([np.repeat(100, n - 1), [99]]),
         'all_but_one_2':   np.concatenate([[-1], np.repeat(0, n - 1)]),
+        'nan_but_last':    np.concatenate([np.repeat(np.nan, n - 1), [1]]),
     })
     original_columns = set(df.columns)
     uninformative_columns = {column for column in original_columns
