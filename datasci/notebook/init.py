@@ -90,6 +90,12 @@ alt.renderers.enable(embed_options={'actions': False})
 
 def _globalFont_theme(font: str = 'Times New Roman',
                       fontSize: int = 12) -> dict:
+    labelTitle = {
+        'labelFont': font,
+        'labelFontSize': fontSize,
+        'titleFont': font,
+        'titleFontSize': fontSize + 1,
+    }
     return {
         # the 'default' theme sets config.view.{width, height} to these dimensions,
         # but the view config's width & height apply only to continuous scales
@@ -107,23 +113,11 @@ def _globalFont_theme(font: str = 'Times New Roman',
                 'font': font,
                 'fontSize': fontSize + 2,
             },
-            # axis/legend could use practically the same config, but there's
-            # some weird Altair/Vega-Lite bug that surfaces as
-            # "Javascript Error: Cannot read property '0' of undefined"
-            # if you assign them both to the same variable
-            # (I'm inclined to blame Altair)
-            'axis': {
-                'labelFont': font,
-                'labelFontSize': fontSize,
-                'titleFont': font,
-                'titleFontSize': fontSize + 1,
-            },
-            'legend': {
-                'labelFont': font,
-                'labelFontSize': fontSize - 1,
-                'titleFont': font,
-                'titleFontSize': fontSize,
-            },
+            # axis/legend get the same config, but there's some weird Altair bug that
+            # surfaces as "Javascript Error: Cannot read property '0' of undefined" if
+            # you assign them to the same variable, so we create separate dicts for each
+            'axis': {**labelTitle},
+            'legend': {**labelTitle},
         },
     }
 
