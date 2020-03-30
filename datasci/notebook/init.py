@@ -31,6 +31,7 @@ from numbers import Number
 from typing import (
     Any,
     Callable,
+    Collection,
     Dict,
     Generator,
     Generic,
