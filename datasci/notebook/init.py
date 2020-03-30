@@ -117,6 +117,7 @@ def _globalFont_theme(font: str = 'Times New Roman',
             # surfaces as "Javascript Error: Cannot read property '0' of undefined" if
             # you assign them to the same variable, so we create separate dicts for each
             'axis': {**labelTitle},
+            'header': {**labelTitle},
             'legend': {**labelTitle},
         },
     }
