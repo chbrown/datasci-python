@@ -65,10 +65,14 @@ from pyperclip import copy, paste
 import scipy
 import pandas as pd
 import altair as alt
-from datasci.pandas import drop_na_columns, drop_uninformative_columns, drop_duplicate_columns
+from datasci.pandas import (
+    drop_na_columns,
+    drop_uninformative_columns,
+    drop_duplicate_columns,
+)
 
 _np_options = {
-    "precision": 5,    # default: 8
+    "precision": 5,  # default: 8
     "threshold": 100,  # default: 1000
     "linewidth": 120,  # default: 75
 }
@@ -77,8 +81,8 @@ np.set_printoptions(**_np_options)
 _pd_options = {
     # Unfortunately, there is no option to set precision on pd.Index formatting
     "display.chop_threshold": np.finfo(float).eps,  # default: None
-    "display.max_rows": 20,        # default: 60
-    "display.max_columns": 50,     # default: 20
+    "display.max_rows": 20,  # default: 60
+    "display.max_columns": 50,  # default: 20
     "display.max_colwidth": 1000,  # default: 50
     "display.precision": _np_options["precision"],  # default: 6
     "display.width": _np_options["linewidth"],  # default: 80
@@ -89,8 +93,7 @@ pd.set_option(*toolz.concat(_pd_options.items()))
 alt.renderers.enable(embed_options={"actions": False})
 
 
-def _globalFont_theme(font: str = "Times New Roman",
-                      fontSize: int = 12) -> dict:
+def _globalFont_theme(font: str = "Times New Roman", fontSize: int = 12) -> dict:
     labelTitle = {
         "labelFont": font,
         "labelFontSize": fontSize,
@@ -104,16 +107,8 @@ def _globalFont_theme(font: str = "Times New Roman",
         "height": 300,
         "config": {
             # customizations
-            "mark": {
-                "text": {
-                    "font": font,
-                    "fontSize": fontSize,
-                },
-            },
-            "title": {
-                "font": font,
-                "fontSize": fontSize + 2,
-            },
+            "mark": {"text": {"font": font, "fontSize": fontSize}},
+            "title": {"font": font, "fontSize": fontSize + 2},
             # axis/legend get the same config, but there's some weird Altair bug that
             # surfaces as "Javascript Error: Cannot read property '0' of undefined" if
             # you assign them to the same variable, so we create separate dicts for each
@@ -146,6 +141,7 @@ def asdf(*columns: List[str], index_columns=None):
             yield x, 2 * x + 1
     df = line_df()
     """
+
     def asdf_inner(row_generator: Callable[..., Iterable[Iterable]]):
         def wrapped_row_generator(*args, **kwargs):
             data = row_generator(*args, **kwargs)
@@ -153,7 +149,9 @@ def asdf(*columns: List[str], index_columns=None):
             if index_columns:
                 df = df.set_index(index_columns)
             return df
+
         return wrapped_row_generator
+
     return asdf_inner
 
 
@@ -162,9 +160,9 @@ class fmt:  # pylint: disable=too-few-public-methods
         self.text = s.format(*args, **kwargs)
 
     def _repr_html_(self):
-        return markdown.markdown(self.text,
-                                 extensions=_default_markdown_extensions,
-                                 output_format="html5")
+        return markdown.markdown(
+            self.text, extensions=_default_markdown_extensions, output_format="html5"
+        )
 
     def _repr_latex_(self):
         # maybe use pandoc?
@@ -180,6 +178,7 @@ def try_literal_eval(node_or_string: str) -> Any:
     return node_or_string unchanged if ast.literal_eval raises an Error.
     """
     import ast
+
     try:
         return ast.literal_eval(node_or_string)
     except (SyntaxError, ValueError):
@@ -191,6 +190,7 @@ class PandasOptionContextMagics(Magics):
     """
     See docs at https://ipython.readthedocs.io/en/stable/config/custommagics.html
     """
+
     @cell_magic
     def full(self, _line, cell):
         """
@@ -200,8 +200,7 @@ class PandasOptionContextMagics(Magics):
             %%full
             df
         """
-        with pd.option_context("display.max_rows", None,
-                               "display.max_columns", None):
+        with pd.option_context("display.max_rows", None, "display.max_columns", None):
             self.shell.run_cell(cell)
 
     @cell_magic
@@ -219,6 +218,7 @@ class PandasOptionContextMagics(Magics):
 
 def print_versions():
     import platform
+
     print(f"Python: {platform.python_version()}")
     print("Imported 3rd party packages:")
     print(f"- IPython=={IPython.__version__}")
@@ -234,8 +234,9 @@ def print_versions():
 DEFAULT_LOGGING_FORMAT = "%(asctime)14s %(levelname)-7s %(name)s - %(message)s"
 
 
-def install_datasci_notebook(logging_level: int = logging.DEBUG,
-                             logging_format: str = DEFAULT_LOGGING_FORMAT) -> logging.Logger:
+def install_datasci_notebook(
+    logging_level: int = logging.DEBUG, logging_format: str = DEFAULT_LOGGING_FORMAT
+) -> logging.Logger:
     """
     Reset & configure logging, register magics, and return logger named "notebook"
     """
@@ -247,6 +248,7 @@ def install_datasci_notebook(logging_level: int = logging.DEBUG,
     logging.basicConfig(format=logging_format, level=logging_level)
     # install IPython integrations
     from IPython import get_ipython
+
     get_ipython().register_magics(PandasOptionContextMagics)
     # return namespaced logger
     return logging.getLogger("notebook")
