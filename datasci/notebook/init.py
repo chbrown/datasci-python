@@ -68,69 +68,69 @@ import altair as alt
 from datasci.pandas import drop_na_columns, drop_uninformative_columns, drop_duplicate_columns
 
 _np_options = {
-    'precision': 5,    # default: 8
-    'threshold': 100,  # default: 1000
-    'linewidth': 120,  # default: 75
+    "precision": 5,    # default: 8
+    "threshold": 100,  # default: 1000
+    "linewidth": 120,  # default: 75
 }
 np.set_printoptions(**_np_options)
 
 _pd_options = {
     # Unfortunately, there is no option to set precision on pd.Index formatting
-    'display.chop_threshold': np.finfo(float).eps,  # default: None
-    'display.max_rows': 20,        # default: 60
-    'display.max_columns': 50,     # default: 20
-    'display.max_colwidth': 1000,  # default: 50
-    'display.precision': _np_options['precision'],  # default: 6
-    'display.width': _np_options['linewidth'],  # default: 80
+    "display.chop_threshold": np.finfo(float).eps,  # default: None
+    "display.max_rows": 20,        # default: 60
+    "display.max_columns": 50,     # default: 20
+    "display.max_colwidth": 1000,  # default: 50
+    "display.precision": _np_options["precision"],  # default: 6
+    "display.width": _np_options["linewidth"],  # default: 80
 }
 pd.set_option(*toolz.concat(_pd_options.items()))
 
 # Disable "Export PNG/SVG" and "Open in Vega" links
-alt.renderers.enable(embed_options={'actions': False})
+alt.renderers.enable(embed_options={"actions": False})
 
 
-def _globalFont_theme(font: str = 'Times New Roman',
+def _globalFont_theme(font: str = "Times New Roman",
                       fontSize: int = 12) -> dict:
     labelTitle = {
-        'labelFont': font,
-        'labelFontSize': fontSize,
-        'titleFont': font,
-        'titleFontSize': fontSize + 1,
+        "labelFont": font,
+        "labelFontSize": fontSize,
+        "titleFont": font,
+        "titleFontSize": fontSize + 1,
     }
     return {
-        # the 'default' theme sets config.view.{width, height} to these dimensions,
+        # the "default" theme sets config.view.{width, height} to these dimensions,
         # but the view config's width & height apply only to continuous scales
-        'width': 400,
-        'height': 300,
-        'config': {
+        "width": 400,
+        "height": 300,
+        "config": {
             # customizations
-            'mark': {
-                'text': {
-                    'font': font,
-                    'fontSize': fontSize,
+            "mark": {
+                "text": {
+                    "font": font,
+                    "fontSize": fontSize,
                 },
             },
-            'title': {
-                'font': font,
-                'fontSize': fontSize + 2,
+            "title": {
+                "font": font,
+                "fontSize": fontSize + 2,
             },
             # axis/legend get the same config, but there's some weird Altair bug that
             # surfaces as "Javascript Error: Cannot read property '0' of undefined" if
             # you assign them to the same variable, so we create separate dicts for each
-            'axis': {**labelTitle},
-            'header': {**labelTitle},
-            'legend': {**labelTitle},
+            "axis": {**labelTitle},
+            "header": {**labelTitle},
+            "legend": {**labelTitle},
         },
     }
 
 
-alt.themes.register('globalFont', _globalFont_theme)
+alt.themes.register("globalFont", _globalFont_theme)
 
 
 _default_markdown_extensions = [
-    'markdown.extensions.extra',
-    'markdown.extensions.sane_lists',
-    'markdown.extensions.smarty',
+    "markdown.extensions.extra",
+    "markdown.extensions.sane_lists",
+    "markdown.extensions.smarty",
 ]
 
 
@@ -140,7 +140,7 @@ def asdf(*columns: List[str], index_columns=None):
     pd.DataFrame constructor. Super simple, but avoids having to nest a
     generator function inside a DataFrame-creator function. Use like:
 
-    @asdf('x', 'y')
+    @asdf("x", "y")
     def line_df():
         for x in range(100):
             yield x, 2 * x + 1
@@ -164,7 +164,7 @@ class fmt:  # pylint: disable=too-few-public-methods
     def _repr_html_(self):
         return markdown.markdown(self.text,
                                  extensions=_default_markdown_extensions,
-                                 output_format='html5')
+                                 output_format="html5")
 
     def _repr_latex_(self):
         # maybe use pandoc?
@@ -200,8 +200,8 @@ class PandasOptionContextMagics(Magics):
             %%full
             df
         """
-        with pd.option_context('display.max_rows', None,
-                               'display.max_columns', None):
+        with pd.option_context("display.max_rows", None,
+                               "display.max_columns", None):
             self.shell.run_cell(cell)
 
     @cell_magic
@@ -219,25 +219,25 @@ class PandasOptionContextMagics(Magics):
 
 def print_versions():
     import platform
-    print(f'Python: {platform.python_version()}')
-    print('Imported 3rd party packages:')
-    print(f'- IPython=={IPython.__version__}')
-    print(f'- cytoolz=={toolz.__version__} as toolz')
-    print(f'- numpy=={np.__version__} as np')
-    print(f'- scipy=={scipy.__version__} as scipy')
-    print(f'- pandas=={pd.__version__} as pd')
-    print(f'- altair=={alt.__version__} as alt')
-    print(f'- markdown=={markdown.__version__}')
-    print(f'- smart_open=={smart_open.__version__}')
+    print(f"Python: {platform.python_version()}")
+    print("Imported 3rd party packages:")
+    print(f"- IPython=={IPython.__version__}")
+    print(f"- cytoolz=={toolz.__version__} as toolz")
+    print(f"- numpy=={np.__version__} as np")
+    print(f"- scipy=={scipy.__version__} as scipy")
+    print(f"- pandas=={pd.__version__} as pd")
+    print(f"- altair=={alt.__version__} as alt")
+    print(f"- markdown=={markdown.__version__}")
+    print(f"- smart_open=={smart_open.__version__}")
 
 
-DEFAULT_LOGGING_FORMAT = '%(asctime)14s %(levelname)-7s %(name)s - %(message)s'
+DEFAULT_LOGGING_FORMAT = "%(asctime)14s %(levelname)-7s %(name)s - %(message)s"
 
 
 def install_datasci_notebook(logging_level: int = logging.DEBUG,
                              logging_format: str = DEFAULT_LOGGING_FORMAT) -> logging.Logger:
     """
-    Reset & configure logging, register magics, and return logger named 'notebook'
+    Reset & configure logging, register magics, and return logger named "notebook"
     """
     # reset logging (replace with basicConfig(force=True) when Python 3.8 comes out)
     for handler in logging.root.handlers[:]:
@@ -249,8 +249,8 @@ def install_datasci_notebook(logging_level: int = logging.DEBUG,
     from IPython import get_ipython
     get_ipython().register_magics(PandasOptionContextMagics)
     # return namespaced logger
-    return logging.getLogger('notebook')
+    return logging.getLogger("notebook")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     install_datasci_notebook()

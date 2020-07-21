@@ -7,11 +7,11 @@ __version__ = None
 
 try:
     import pkg_resources
-    __version__ = pkg_resources.get_distribution('datasci').version
+    __version__ = pkg_resources.get_distribution("datasci").version
 except Exception:
     pass
 
-Numeric = TypeVar('Numeric', Number, np.ndarray)
+Numeric = TypeVar("Numeric", Number, np.ndarray)
 
 
 def logistic(x: Numeric) -> Numeric:
@@ -29,7 +29,7 @@ def logit(p: Numeric) -> Numeric:
     Compute the logit (AKA log-odds) function,
     which maps a probability into ℝ.
     """
-    assert 0.0 <= p <= 1.0, 'p must be in the range [0, 1]'
+    assert 0.0 <= p <= 1.0, "p must be in the range [0, 1]"
     if p == 0:
         return -math.inf
     if p == 1:

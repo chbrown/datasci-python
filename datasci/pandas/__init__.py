@@ -9,9 +9,9 @@ logger = logging.getLogger(__name__)
 
 def drop_na_columns(df: pd.DataFrame, inplace=False) -> pd.DataFrame:
     """
-    Simply calls df.dropna(axis='columns', how='all', ...)
+    Simply calls df.dropna(axis="columns", how="all", ...)
     """
-    return df.dropna(axis='columns', how='all', inplace=inplace)
+    return df.dropna(axis="columns", how="all", inplace=inplace)
 
 
 def uninformative_columns(df: pd.DataFrame) -> Iterator[Tuple[str, Any]]:
@@ -42,12 +42,12 @@ def drop_uninformative_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
     for column, value in uninformative_columns(df):
         logger.debug(
-            'Dropping column %r from DataFrame (every value %s %r)',
+            "Dropping column %r from DataFrame (every value %s %r)",
             column,
-            'is' if isinstance(value, float) and np.isnan(value) else '=',
+            "is" if isinstance(value, float) and np.isnan(value) else "=",
             value,
         )
-        df = df.drop(column, axis='columns')
+        df = df.drop(column, axis="columns")
     return df
 
 
@@ -76,9 +76,9 @@ def drop_duplicate_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
     for duplicate_column, original_column in duplicate_columns(df):
         logger.debug(
-            'Dropping column %r from DataFrame (duplicate of %r)',
+            "Dropping column %r from DataFrame (duplicate of %r)",
             duplicate_column,
             original_column,
         )
-        df = df.drop(duplicate_column, axis='columns')
+        df = df.drop(duplicate_column, axis="columns")
     return df
