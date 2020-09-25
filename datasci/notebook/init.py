@@ -31,11 +31,13 @@ from numbers import Number
 
 from typing import (
     Any,
+    BinaryIO,
     Callable,
     Collection,
     Dict,
     Generator,
     Generic,
+    IO,
     Iterable,
     Iterator,
     List,
