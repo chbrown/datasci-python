@@ -19,7 +19,8 @@ import gzip
 import json
 import operator
 import itertools
-from functools import partial, reduce
+import subprocess
+from functools import lru_cache, partial, reduce
 from collections import abc, Counter, defaultdict
 from dataclasses import dataclass
 from datetime import datetime, timedelta
